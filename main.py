@@ -32,16 +32,17 @@ class start:
             if katsayı != 1:
                 self.driver.get("https://www.e-sehir.com/turkiye-haritasi/edirne-egitim-kurumlari.html")
             data = self.driver.find_element_by_xpath(f'//*[@id="main_panel"]/div/div[2]/p[{i+1}]')
-            if i == 0 or i ==2 or i==4 or i == 6 or i == 7 or i==8 or i==9 or i==10 or i==13 or i==14  or i==16 or i==20 or i==23 or i==24 or i==25:
-                continue
             self.name_of_list = data.text
             if str(data.text).split(" ")[-1] == "Listesi":
                 print("okey")
                 print(data.text)
-                self.link = data.find_element_by_tag_name("a").get_attribute("href")
-                print(self.link)
-                self.search_list()
-            katsayı+=1
+                try:
+                    self.link = data.find_element_by_tag_name("a").get_attribute("href")
+                        print(self.link)
+                    self.search_list()
+                    katsayı+=1
+                except Exception:
+                    break
     def search_list(self):
         self.driver.get(self.link)
         x = self.driver.find_element_by_class_name("panel-body")
